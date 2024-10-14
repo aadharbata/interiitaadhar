@@ -1,0 +1,1 @@
+{"root":["./src/app.ts","./src/gdata.ts","./src/hash.ts","./src/idata.ts","./src/index.ts","./src/routes/godown.ts","./src/routes/item.ts","./src/routes/user.ts"],"version":"5.6.3"}
