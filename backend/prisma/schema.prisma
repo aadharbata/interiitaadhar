@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+  timeout  = "30000"
+   binaryTargets = ["native", "debian-openssl-3.0.x"] 
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Godown {
+  id             Int      @id @default(autoincrement())
+  godown_id      String   @unique
+  name           String
+  parentGodownId String?
+  parentGodown   Godown?  @relation("ParentToChild", fields: [parentGodownId], references: [godown_id])
+  children       Godown[] @relation("ParentToChild")
+  Item           Item[]
+  flow           String[]
+}
+
+model Item {
+  id             Int    @id @default(autoincrement())
+  item_id        String @unique
+  name           String
+  quantity       Int
+  category       String
+  price          Float
+  status         String
+  parentGodownId String
+  brand          String
+  attributes     Json?
+  image_url      String
+  parentGodown   Godown @relation(fields: [parentGodownId], references: [godown_id])
+}
+
+model User {
+  id String @id @default(uuid())
+  email String @unique
+  name String?
+  password String
+}
